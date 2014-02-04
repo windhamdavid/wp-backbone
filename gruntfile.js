@@ -31,6 +31,17 @@ module.exports = function(grunt) {
             ]
         },
 
+		uglify: {
+		    build: {
+		        src: 'js/script.js',
+		        dest: 'js/script.min.js'
+		    },
+		    build: {
+		        src: 'js/init.js',
+		        dest: 'js/init.min.js'
+		    }
+		}, 
+		
 		phpunit: {
             all: {
                 dir: 'tests/phpunit/'
