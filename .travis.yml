@@ -1,0 +1,36 @@
+language: php
+
+php:
+  - 5.4
+env:
+    - WP_VERSION=master
+
+matrix:
+  include:
+    - php: "5.4"
+      env: WP_VERSION=3.8
+    - php: "5.2"
+      env: WP_VERSION=3.8
+
+
+	
+branches:
+  except:
+    - dev
+
+before_script:
+  - npm install -g grunt-cli
+  - npm install
+
+    - git clone https://github.com/windhamdavid/wp.git /tmp/wp
+    - cd /tmp/wp/wp
+    - git checkout $WP_VERSION
+    - mysql -e "CREATE DATABASE wp_tests;" -uroot
+    - cp wp-tests-config-sample.php wp-tests-config.php
+    - sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
+    - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
+    - sed -i "s/yourpasswordhere//" wp-tests-config.php
+    - cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+
+  
+script: grunt test --verbose

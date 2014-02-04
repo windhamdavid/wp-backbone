@@ -7,8 +7,8 @@ module.exports = function(grunt) {
 
         watch: {
             compass: {
-                files: ['css/scss/**/*.{scss,sass}'],
-                tasks: ['compass']
+                files: ['css/**/*.sass'],
+                tasks: ['sass']
             },
             js: {
                 files: '<%= jshint.all %>',
@@ -20,15 +20,6 @@ module.exports = function(grunt) {
             }
         },
 
-        compass: {
-            dist: {
-                options: {
-                    config: 'config.rb',
-                    force: true
-                }
-            }
-        },
-
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -36,36 +27,8 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'assets/js/source/**/*.js'
+                'js/source/**/*.js'
             ]
-        },
-
-        uglify: {
-            plugins: {
-                options: {
-                    sourceMap: 'assets/js/plugins.js.map',
-                    sourceMappingURL: 'plugins.js.map',
-                    sourceMapPrefix: 2
-                },
-                files: {
-                    'assets/js/plugins.min.js': [
-                        'assets/js/source/plugins.js',
-                        // 'assets/js/vendor/yourplugin/yourplugin.js',
-                    ]
-                }
-            },
-            main: {
-                options: {
-                    sourceMap: 'assets/js/main.js.map',
-                    sourceMappingURL: 'main.js.map',
-                    sourceMapPrefix: 2
-                },
-                files: {
-                    'assets/js/main.min.js': [
-                        'assets/js/source/main.js'
-                    ]
-                }
-            }
         },
 
 		phpunit: {
@@ -77,7 +40,6 @@ module.exports = function(grunt) {
     });
 	
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.registerTask('default', ['watch']);
 
