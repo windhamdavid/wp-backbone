@@ -1,24 +1,17 @@
 'use strict';
 module.exports = function(grunt) {
 
-    require('load-grunt-tasks')(grunt);
-
     grunt.initConfig({
 
-        watch: {
-            compass: {
-                files: ['css/**/*.sass'],
-                tasks: ['sass']
-            },
-            js: {
-                files: '<%= jshint.all %>',
-                tasks: ['jshint', 'uglify']
-            },
-            livereload: {
-                options: { livereload: true },
-                files: ['style.css', 'js/*.js', '*.html', '*.php', 'img/**/*.{png,jpg,jpeg,gif,webp,svg}']
-            }
-        },
+		watch: {
+		    scripts: {
+		        files: ['js/*.js'],
+		        tasks: ['concat', 'uglify'],
+		        options: {
+		            spawn: false,
+		        },
+		    } 
+		},
 
         jshint: {
             options: {
@@ -29,29 +22,10 @@ module.exports = function(grunt) {
                 'Gruntfile.js',
                 'js/source/**/*.js'
             ]
-        },
-
-		uglify: {
-		    build: {
-		        src: 'js/script.js',
-		        dest: 'js/script.min.js'
-		    },
-		    build: {
-		        src: 'js/init.js',
-		        dest: 'js/init.min.js'
-		    }
-		}, 
-		
-		phpunit: {
-            all: {
-                dir: 'tests/phpunit/'
-            }
-        },
+        }
 
     });
-	
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+
 	grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.registerTask('default', ['watch']);
 
 };
