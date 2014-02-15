@@ -1,7 +1,11 @@
 language: php
 
 php:
-  - 5.4
+    - "5.2"
+    - "5.3"
+    - "5.4"
+    - "5.5"
+
 env:
     - WP_VERSION=master
 
@@ -20,13 +24,5 @@ before_script:
   - npm install -g grunt-cli
   - npm install
 
-    - git clone https://github.com/windhamdavid/wp.git /tmp/wp
-    - cd /tmp/wp/wp
-    - git checkout $WP_VERSION
-    - mysql -e "CREATE DATABASE wp_tests;" -uroot
-    - cp wp-tests-config-sample.php wp-tests-config.php
-    - sed -i "s/wp/wordpress_tests/" wp-tests-config.php
-    - sed -i "s/root/travis/" wp-tests-config.php
-    - sed -i "s/tests//" wp-tests-config.php
   
 script: grunt test --verbose
